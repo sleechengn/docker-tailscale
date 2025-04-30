@@ -8,5 +8,8 @@ add ./docker-entrypoint.sh /
 run chmod +x /docker-entrypoint.sh
 cmd []
 entrypoint ["/docker-entrypoint.sh"]
-env TAILSCALED_ARGS="--socket /root/.tailscaled.sock --tun userspace-networking"
-env TAILSCALE_ARGS="--socket /root/.tailscaled.sock web --listen 0.0.0.0:8088"
+
+env TAILSCALED_ARGS="--tun userspace-networking"
+env TAILSCALED_SOCKET="/root/.tailscaled.sock"
+env TAILSCALE_SET="--advertise-exit-node"
+env TAILSCALE_ARGS="web --listen 0.0.0.0:8088"
