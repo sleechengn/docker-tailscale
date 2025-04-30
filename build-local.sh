@@ -27,6 +27,7 @@ sed -i '/.*echo install source.*/d' Dockerfile
 sed -i '/.*#install source.*/i\run --mount=type=bind,target=/root/.cache,rw,source=.cache mkdir /opt/tailscale && cp /root/.cache/tailscale* /opt/tailscale && ln -s /opt/tailscale/tailscale /usr/bin/tailscale && ln -s /opt/tailscale/tailscaled /usr/bin/tailscaled' Dockerfile
 
 time ./build.sh 192.168.13.73:5000/sleechengn/tailscale:latest
+time ./build.sh sleechengn/tailscale:latest
 popd
 
 #rm -rf $TGT_DIR
