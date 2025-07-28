@@ -19,5 +19,7 @@ entrypoint ["/docker-entrypoint.sh"]
 
 env TAILSCALED_DEFAULT_ARGS="--tun userspace-networking"
 env TAILSCALED_SOCKET="/root/.tailscaled.sock"
+env TAILSCALED_ARGS=""
+
 env TAILSCALE_DEFAULT_SET="set --advertise-exit-node"
 env TAILSCALE_DEFAULT_WEB_ARGS="web --listen 0.0.0.0:8088"
