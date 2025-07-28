@@ -10,6 +10,14 @@ done
 tailscale --socket $TAILSCALED_SOCKET $TAILSCALE_DEFAULT_WEB_ARGS &
 tailscale --socket $TAILSCALED_SOCKET $TAILSCALE_DEFAULT_SET &
 
+env|grep TAILSCALE_SET|while IFS='=' read -r name value
+do
+  echo "$value"
+  if [ "$value" ]; then
+    tailscale --socket $TAILSCALED_SOCKET $value
+  fi
+done
+
 nohup nginx > /dev/null &
 nohup filebrowser -d /opt/filebrowser/filebrowser.db -a 127.0.0.1 -p 8081 -b /filebrowser -r / --noauth > /dev/null &
 ttyd --port 8082 --base-path /ttyd /usr/bin/bash
