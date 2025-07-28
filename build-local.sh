@@ -32,3 +32,4 @@ popd
 
 #rm -rf $TGT_DIR
 docker push 192.168.13.73:5000/sleechengn/tailscale:latest
+#docker push sleechengn/tailscale:latest

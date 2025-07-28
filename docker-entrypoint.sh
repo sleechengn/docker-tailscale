@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-tailscaled --socket $TAILSCALED_SOCKET $TAILSCALED_ARGS &
+tailscaled --socket $TAILSCALED_SOCKET $TAILSCALED_DEFAULT_ARGS &
 
 ls -la $TAILSCALED_SOCKET
 while [ ! -e "$TAILSCALED_SOCKET" ]
@@ -9,8 +9,8 @@ do
 done
 ls -la $TAILSCALED_SOCKET
 
-tailscale --socket $TAILSCALED_SOCKET $TAILSCALE_ARGS &
-tailscale --socket $TAILSCALED_SOCKET set $TAILSCALE_SET &
+tailscale --socket $TAILSCALED_SOCKET $TAILSCALE_DEFAULT_WEB_ARGS &
+tailscale --socket $TAILSCALED_SOCKET $TAILSCALE_DEFAULT_SET &
 
 nohup nginx > /dev/null &
 nohup filebrowser -d /opt/filebrowser/filebrowser.db -a 127.0.0.1 -p 8081 -b /filebrowser -r / --noauth > /dev/null &
