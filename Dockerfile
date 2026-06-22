@@ -1,5 +1,5 @@
-from ubuntu:jammy
-#APT_CN_UBUNTU_JAMMY
+from debian:trixie
+
 run apt update
 run apt install -y nginx curl ttyd
 run echo install source && curl -fsSL https://tailscale.com/install.sh | sh
