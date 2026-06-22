@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 tailscaled --socket $TAILSCALED_SOCKET $TAILSCALED_DEFAULT_ARGS $TAILSCALED_ARGS &
 
 while [ ! -e "$TAILSCALED_SOCKET" ]
@@ -20,4 +20,4 @@ done
 
 nohup nginx > /dev/null &
 nohup filebrowser -d /opt/filebrowser/filebrowser.db -a 127.0.0.1 -p 8081 -b /filebrowser -r / --noauth > /dev/null &
-ttyd --port 8082 --base-path /ttyd /usr/bin/bash
+ttyd.x86_64 --port 8082 -W -t enableZmodem=true -t enableTrzsz=true --base-path /ttyd /usr/bin/fish
