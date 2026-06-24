@@ -31,7 +31,7 @@ fi
 if [ ! -e "/usr/bin/t" ]; then
 cat > /usr/bin/t <<EOF
 #!/usr/bin/env bash
-if [ "$(tmux ls|grep '^default.*')" ]; then
+if [ "\$(tmux ls|grep '^default.*')" ]; then
         tmux a -t default
 else
         tmux new -s default
