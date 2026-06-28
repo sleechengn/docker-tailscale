@@ -49,3 +49,7 @@ env TAILSCALED_ARGS=""
 env TAILSCALE_DEFAULT_SET="set --advertise-exit-node"
 env TAILSCALE_DEFAULT_WEB_ARGS="web --listen 0.0.0.0:8088"
 env TAILSCALE_SET=""
+
+volume ["/root"]
+volume ["/home"]
+volume ["/var/lib/tailscale"]
