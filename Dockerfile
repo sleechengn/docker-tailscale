@@ -43,7 +43,7 @@ cmd []
 entrypoint ["/docker-entrypoint.sh"]
 
 env TAILSCALED_DEFAULT_ARGS="--tun userspace-networking"
-env TAILSCALED_SOCKET="/root/.tailscaled.sock"
+env TAILSCALED_SOCKET="~/.tailscaled.sock"
 env TAILSCALED_ARGS=""
 
 env TAILSCALE_DEFAULT_SET="set --advertise-exit-node"
