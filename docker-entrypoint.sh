@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
+
+if [ -e "$TAILSCALED_SOCKET" ]; then
+  rm -rf $TAILSCALED_SOCKET
+fi
+
 tailscaled --socket $TAILSCALED_SOCKET $TAILSCALED_DEFAULT_ARGS $TAILSCALED_ARGS &
 
 while [ ! -e "$TAILSCALED_SOCKET" ]
