@@ -1,0 +1,73 @@
+networks:
+  lan13:
+    name: lan13
+    driver: macvlan
+    driver_opts:
+      parent: eth1
+    ipam:
+      config:
+        - subnet: "192.168.13.0/24"
+          gateway: "192.168.13.254"
+  lan12:                                                                                                                                                                                                          
+    name: lan12                                                                                                                                                                                                   
+    driver: macvlan                                                                                                                                                                                               
+    driver_opts:                                    
+      parent: eth3                                  
+    ipam:                                           
+      config:                                       
+        - subnet: "192.168.12.0/24"
+          gateway: 192.168.12.254
+services:
+  tailscale:
+    container_name: "tailscale"
+    hostname: "tailscale"
+    #image: 192.168.13.73:5000/sleechengn/tailscale
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+
+      # - "TAILSCALED_DEFAULT_ARGS=\"--tun userspace-networking\""
+      # - "TAILSCALED_SOCKET=\"~/.tailscaled.sock\""
+      # - "TAILSCALED_ARGS=\"\""
+
+      # - "TAILSCALE_DEFAULT_WEB_ARGS=\"web --listen 0.0.0.0:8088\""
+
+      # - "TAILSCALE_DEFAULT_SET=\"set --advertise-exit-node\""
+      # - "TAILSCALE_SET=\"\""
+      - "TAILSCALED_ARGS=--socks5-server=0.0.0.0:1080 --outbound-http-proxy-listen=0.0.0.0:8080"
+      - "TAILSCALE_SET1=set --advertise-routes=192.168.13.0/24,192.168.12.0/24 --advertise-exit-node"
+    cap_add:
+      - NET_ADMIN
+    restart: always
+    networks:
+      lan13:
+        ipv4_address: 192.168.13.89
+      lan12:
+        ipv4_address: 192.168.12.88
+    volumes:
+      - tailscale-lib:/var/lib/tailscale
+      - tailscale-root:/root
+      - tailscale-home:/home
+volumes:
+  tailscale-root:
+    name: tailscale-root
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ./volumes/root
+  tailscale-lib:
+    name: tailscale-lib
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ./volumes/var/lib/tailscale
+  tailscale-home:
+    name: tailscale-home
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ./volumes/home
